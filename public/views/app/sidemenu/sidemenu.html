@@ -6,16 +6,16 @@
 				</md-list-item>
 				<md-list-item ui-sref="app.index.list" ui-sref-active="active">
 								<md-icon class="material-icons md-primary">view_list</md-icon>
-								<md-tooltip md-direction="right">Browse Full List</p>
+								<md-tooltip md-direction="right">Browse Full List</md-tooltip>
 				</md-list-item>
 				<md-list-item ng-if="$root.isAuthenticated()" ui-sref="app.index.mydata" ui-sref-active="active">
 								<md-icon class="material-icons md-rounded md-primary">fingerprint</md-icon>
-								<md-tooltip md-direction="right">Your Data</p>
+								<md-tooltip md-direction="right">Your Data</md-tooltip>
 
 				</md-list-item>
 				<md-list-item ng-if="$root.isAuthenticated()" ui-sref="app.index.create" ui-sref-active="active">
 								<md-icon class="material-icons md-rounded md-primary">file_upload</md-icon>
-								<md-tooltip md-direction="right">Upload new data</p>
+								<md-tooltip md-direction="right">Upload new data</md-tooltip>
 
 				</md-list-item>
 				<md-list-item ng-if="$root.isAuthenticated()" ui-sref="app.index.editor" ui-sref-active="active">
