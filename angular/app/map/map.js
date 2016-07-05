@@ -12,13 +12,12 @@
 		var vm = this;
 		var apiKey = VectorlayerService.keys.mapbox;
 		vm.VectorlayerService = VectorlayerService;
-		vm.toggleLayers = toggleLayers;
-		vm.defaults = {
+        vm.toggleLayers = toggleLayers;
+        vm.defaults = {
 			//scrollWheelZoom: false,
 			minZoom: minZoom,
 			maxZoom: 6
 		};
-
 		// vm.layers = {
 		// 	baselayers: {
 		// 		xyz: {
@@ -33,13 +32,14 @@
 		// 		}
 		// 	}
 		// };
-		vm.labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.06029a9c/{z}/{x}/{y}.png?access_token=' + apiKey, {
+
+        vm.labelsLayer = L.tileLayer('https://{s}.tiles.mapbox.com/v4/magnolo.06029a9c/{z}/{x}/{y}.png?access_token=' + apiKey, {
 			noWrap: true,
 			continuousWorld: false,
 			name: 'labels',
 			detectRetina: true
 		});
-		vm.maxbounds = {
+        vm.maxbounds = {
 			southWest: {
 				lat: 90,
 				lng: 180
@@ -49,15 +49,17 @@
 				lng: -180
 			}
 		};
-		vm.controls = {
+        vm.controls = {
 			custom: []
 		};
-		vm.layercontrol = {
+        vm.layercontrol = {
 			icons: {
 				uncheck: "fa fa-toggle-off",
 				check: "fa fa-toggle-on"
 			}
 		}
+
+        console.log(vm);
 
 		var MyControl = L.control();
 		MyControl.setPosition('topleft');
@@ -70,8 +72,10 @@
 			var span = L.DomUtil.create('a', 'leaflet-control-zoom-in cursor', container);
 			span.textContent = 'T';
 			span.title = "Toggle Labels";
+            vm.toggleLayers();
 			L.DomEvent.disableClickPropagation(container);
 			L.DomEvent.addListener(container, 'click', function() {
+                    console.log("vm.noLabel: " + vm.noLabel);
 					var map = VectorlayerService.getMap();
 					if (vm.noLabel) {
 						map.removeLayer(vm.labelsLayer);
@@ -107,8 +111,7 @@
 
 
 		function toggleLayers(overlayName) {
-			 var map = VectorlayerService.getMap('map');
-				console.log(map);
+			 var map = VectorlayerService.getMap();
 				if (vm.noLabel) {
 					map.removeLayer(vm.labelsLayer);
 					vm.noLabel = false;
@@ -117,8 +120,6 @@
 					vm.labelsLayer.bringToFront();
 					vm.noLabel = true;
 				}
-
-
 		}
 		leafletData.getMap('map').then(function(map) {
 			VectorlayerService.setMap(map);
