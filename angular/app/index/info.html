@@ -34,7 +34,7 @@
 								<div class="cssload-text">23°</div>
 				</div>
 				<section class="header noPaddingOnClosed"  layout-align="space-between center" layout="row" ng-if="!vm.structure.parent_id" ng-style="{'color':vm.display.selectedCat.color}">
-								<span class="title " ng-class="{'tinyOnClosed': vm.current && vm.data.length }">{{vm.structure.title}}</span>
+								<span class="title " ng-class="{'tinyOnClosed': vm.current && vm.data.length }"> {{vm.structure.title}} </span>
 								<span class="subtitle hideOnClosed">{{vm.structure.full_name}}</span>
 								<md-button class="md-icon-button hideOnClosed" ui-sref="app.index.show.info({id:vm.structure.id,name:vm.structure.name})">
 												<i class="icon-acess-to-information"></i>
