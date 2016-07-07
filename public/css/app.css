@@ -1577,6 +1577,7 @@ md-toast[md-theme=warn] {
 }
 
 
+
 .chapter {
   font-weight: bold;
   margin-right: 1em;
@@ -1618,7 +1619,6 @@ md-toast[md-theme=warn] {
 .md-button.rounded:first-child.active {
   margin-left: 0;
 }
-
 
 .chapter-image {
   position: relative;
@@ -2799,6 +2799,10 @@ md-list-item.active {
 }
 
 
+.trend span {
+  border: 2px solid;
+  padding: 0.3em;
+}
 
 
 #main-logo {
@@ -2985,6 +2989,7 @@ div[ui-view='map'] {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
 
+
 /*.Sidebar {
 	position: fixed !important;
 	top: 0;
@@ -3036,7 +3041,6 @@ div[ui-view='map'] {
 .Sidebar-version a {
   color: white;
 }
-
 
 
 

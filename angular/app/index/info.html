@@ -21,12 +21,15 @@
 	md-tabs md-ink-bar {
 		background:{{vm.structure.style.base_color || 'rgba(128, 243, 198,1)'}};
 	}
-	md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused,	md-tabs .md-tab .md-ripple-container , .info-container .info-box .module.rank .mini-list .list ul li.active , .info-box .module.rank .mini-list .list ul li.active, .info-box .module.comparison h4 .number, .info-box .header .title{
+	md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused,	md-tabs .md-tab .md-ripple-container , .trend, .info-container .info-box .module.rank .mini-list .list ul li.active , .info-box .module.rank .mini-list .list ul li.active, .info-box .module.comparison h4 .number, .info-box .header .title{
 		color: {{vm.structure.style.base_color || 'rgba(128, 243, 198,1)'}};
 	}
 	.info-box ng-md-icon path{
 		fill: {{vm.structure.style.base_color || 'rgba(128, 243, 198,1)'}} !important;
 	}
+  .trend span {
+    border-color: {{vm.structure.style.base_color || 'rgba(128, 243, 198,1)'}};
+  }
 </style>
 <div class="info-box">
 				<div class="cssload-container doAnim-fade" ng-if="!vm.data.length">
@@ -63,78 +66,92 @@
 				</section>
 				<md-content>
 
-								<section class="header info slide-toggle noPaddingOnClosed" layout-align="space-between center" layout="row" ng-if="vm.current">
-												<span class="title">{{vm.countryList[vm.current.iso]}}</span>
-												<span class="info-icon hideOnClosed" ng-click="vm.mapGotoCountry(vm.current.iso)">
-																<ng-md-icon icon="chevron_right"></ng-md-icon>
-												</span>
-								</section>
-								<section class="rank module slide-toggle hideOnClosed" layout-align="space-between center" layout="row" ng-if="vm.current  && !vm.compare.active">
-												<div class="chart" layout="row">
-																<div layout-align="center center" layout="column">
-																				<div class="title" layout-align="center center" layout="row">Rank</div>
-																				<div layout="row">
-																								<circlegraph item="vm.current" options="vm.circleOptions"></circlegraph>
-																				</div>
-																</div>
-																<div class="tendency" layout-align="center center" layout="column" ng-class="{active:vm.current}">
-																				<div>&nbsp;</div>
-																				<ng-md-icon class="icon-space" icon="{{vm.getTendency()}}" options='{"rotation": "none"}' style="fill:{{vm.structure.color}}"></ng-md-icon>
-																</div>
-												</div>
-												<div class="mini-list">
-																<div class="title">
-																				<span ng-if="!vm.current.id">Top</span>
-																				<span ng-if="vm.current.id">Actual</span>
-																</div>
-																<div class="list">
-																				<ul style="transform:translateY(-{{vm.getOffset()}}px)">
-																								<li ng-class="{active: nat.iso == vm.current.iso}" ng-click="vm.setCurrent(nat)" ng-repeat="(key, nat) in vm.data | orderBy: vm.structure.name:true">
-																												<span class="number">{{key+1}}.</span>
-																												<span class="value">{{nat.iso}}</span>
-																												<md-tooltip md-delay="700" md-direction="right">
-																																{{vm.countryList[nat.iso]}}
-																												</md-tooltip>
-																								</li>
-																				</ul>
-																</div>
-												</div>
-												<div class="mini-list">
-																<div class="title">Bottom</div>
-																<div class="list">
-																				<ul>
-																								<li ng-click="vm.setCurrent(nat)" ng-repeat="(key, nat) in vm.data | orderBy:vm.structure.name:false | limitTo:3">
-																												<span class="number">{{vm.getRank(nat)}}.</span>
-																												<span class="value">{{nat.iso}}</span>
-																												<md-tooltip md-delay="700" md-direction="right">
-																																{{vm.countryList[nat.iso]}}
-																												</md-tooltip>
-																								</li>
-																				</ul>
-																</div>
-												</div>
-								</section>
-
-								<section class="module slide-toggle hideOnClosed" layout-align="center center" layout="column" ng-if="vm.current  && !vm.compare.active">
-												<median data="vm.data" ng-model="vm.current" options="{color: vm.structure.style.base_color,handling: true, field: vm.structure.name}" style="margin:2em 0"></median>
-								</section>
-								<section class="action module slide-toggle mb mt hideOnClosed" layout-align="center center" layout="row" ng-if="!vm.current && vm.data.length">
-												<md-button flex="50" ng-disabled="true" hide-sm>click on a country</md-button>
-												<div flex hide-gt-sm layout="column">
-												<md-subheader class="md-primary">Select a country</md-subheader>
-												<md-input-container>
-												<md-list flex>
-
-																<md-list-item  ng-repeat="(key, nat) in vm.data | orderBy:vm.structure.name">
-																		<p class="cursor" ng-click="vm.setCurrent(nat)">{{vm.countryList[nat.iso]}}</p>
-																</md-list-item>
-												</md-list>
-											</div>
-								</section>
 								<section class="hideOnClosed">
 												<md-tabs md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-selected="vm.activeTab" md-stretch-tabs="true" md-swipe-content="true" ng-if="vm.current">
 																<md-tab label="Details" md-active="vm.activeTab == 0" md-on-select="vm.setTab(0)" ng-if="vm.structure.children.length > 0">
-																				<div class="module bubbles slide-toggle mt mb" layout="column" ng-show="!vm.isPrelast()">
+
+                                  <section class="header info slide-toggle noPaddingOnClosed" layout-align="space-between center" layout="row" ng-if="vm.current">
+                                    <span class="title">{{vm.countryList[vm.current.iso]}}</span>
+												<span class="info-icon hideOnClosed" ng-click="vm.mapGotoCountry(vm.current.iso)">
+																<ng-md-icon icon="chevron_right"></ng-md-icon>
+												</span>
+                                  </section>
+                                  <section class="rank module slide-toggle hideOnClosed" layout-align="space-between center" layout="row" ng-if="vm.current  && !vm.compare.active">
+                                    <div class="chart" layout="row">
+                                      <div layout-align="center center" layout="column">
+                                        <div class="title" layout-align="center center" layout="row">Rank</div>
+                                        <div layout="row">
+                                          <circlegraph item="vm.current" options="vm.circleOptions"></circlegraph>
+                                        </div>
+                                      </div>
+                                      <div class="tendency" layout-align="center center" layout="column" ng-class="{active:vm.current}">
+                                        <div>&nbsp;</div>
+                                        <ng-md-icon class="icon-space" icon="{{vm.getTendency()}}" options='{"rotation": "none"}' style="fill:{{vm.structure.color}}"></ng-md-icon>
+                                      </div>
+                                    </div>
+                                    <div class="mini-list">
+                                      <div class="title">
+                                        <span ng-if="!vm.current.id">Top</span>
+                                        <span ng-if="vm.current.id">Actual</span>
+                                      </div>
+                                      <div class="list">
+                                        <ul style="transform:translateY(-{{vm.getOffset()}}px)">
+                                          <li ng-class="{active: nat.iso == vm.current.iso}" ng-click="vm.setCurrent(nat)" ng-repeat="(key, nat) in vm.data | orderBy: vm.structure.name:true">
+                                            <span class="number">{{key+1}}.</span>
+                                            <span class="value">{{nat.iso}}</span>
+                                            <md-tooltip md-delay="700" md-direction="right">
+                                              {{vm.countryList[nat.iso]}}
+                                            </md-tooltip>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                    <div class="mini-list">
+                                      <div class="title">Bottom</div>
+                                      <div class="list">
+                                        <ul>
+                                          <li ng-click="vm.setCurrent(nat)" ng-repeat="(key, nat) in vm.data | orderBy:vm.structure.name:false | limitTo:3">
+                                            <span class="number">{{vm.getRank(nat)}}.</span>
+                                            <span class="value">{{nat.iso}}</span>
+                                            <md-tooltip md-delay="700" md-direction="right">
+                                              {{vm.countryList[nat.iso]}}
+                                            </md-tooltip>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </section>
+
+                                  <section class="module slide-toggle hideOnClosed" ng-if="vm.current && !vm.compare.active">
+                                    <div layout="row" layout-align="space-around center">
+                                      <div class="title epi-score" >
+                                        Epi Score
+                                      </div>
+                                      <div class="trend">
+                                        10 year trend (%) <span>23,99</span>
+                                      </div>
+                                    </div>
+                                  </section>
+
+                                  <section class="module slide-toggle hideOnClosed" layout-align="center center" layout="column" ng-if="vm.current  && !vm.compare.active">
+                                    <median data="vm.data" ng-model="vm.current" options="{color: vm.structure.style.base_color,handling: true, field: vm.structure.name}" style="margin:2em 0"></median>
+                                  </section>
+                                  <section class="action module slide-toggle mb mt hideOnClosed" layout-align="center center" layout="row" ng-if="!vm.current && vm.data.length">
+                                    <md-button flex="50" ng-disabled="true" hide-sm>click on a country</md-button>
+                                    <div flex hide-gt-sm layout="column">
+                                      <md-subheader class="md-primary">Select a country</md-subheader>
+                                      <md-input-container>
+                                        <md-list flex>
+
+                                          <md-list-item  ng-repeat="(key, nat) in vm.data | orderBy:vm.structure.name">
+                                            <p class="cursor" ng-click="vm.setCurrent(nat)">{{vm.countryList[nat.iso]}}</p>
+                                          </md-list-item>
+                                        </md-list>
+                                    </div>
+                                  </section>
+
+
+                                        <div class="module bubbles slide-toggle mt mb" layout="column" ng-show="!vm.isPrelast()">
 																								<bars data="vm.current.data.data[0]" options="{'titled': false, color:vm.structure.style.base_color, onClick: vm.goToIndex}" structure="vm.structure.children"></bars>
 																				</div>
 																				<div class="module bubbles slide-toggle mt mb" layout="column" ng-show="vm.isPrelast()">

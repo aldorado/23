@@ -28,12 +28,12 @@ class EpiSeeder extends Seeder
         $indicators = array (
   0 =>
   array (
-    'column' => 'score',
+    'column' => 'X2016_EPI_Score',
     'title' => 'Environmental Performance Index',
   ),
   1 =>
   array (
-    'column' => 'eh',
+    'column' => 'Environmental_Health',
     'title' => 'Environmental Health',
   ),
   2 =>
