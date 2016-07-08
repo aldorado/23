@@ -44,10 +44,9 @@
 			} else {
 				$rootScope.fixLayout = false;
 			}
-			console.log(toState)
 			if (typeof toState.views != "undefined") {
-
-				if (toState.views.hasOwnProperty('sidebar@') || toState.views.hasOwnProperty('main@')) {
+				console.log(toState)
+				if (toState.views.hasOwnProperty('sidebar@') || toState.views.hasOwnProperty('main@'))  {
 					$rootScope.sidebar = true;
 				} else {
 					$rootScope.sidebar = false;
@@ -78,18 +77,13 @@
 					$rootScope.fullscreenView = false;
 				}
 			} else {
-				if (!toState.avoidRoots) {
-					$rootScope.additional = false;
-					$rootScope.itemMenu = false;
-					$rootScope.logoView = false;
-					$rootScope.mainView = false;
-					$rootScope.sidebar = true;
-				} else {
-					$rootScope.sidebar = true;
-				}
-
+				$rootScope.additional = false;
+				$rootScope.itemMenu = false;
+				$rootScope.logoView = false;
+				$rootScope.mainView = false;
+				$rootScope.sidebar = true;
 			}
-			if ((toState.name.indexOf('conflict') > -1 && toState.name != "app.conflict.import")) {
+			if ((toState.name.indexOf('conflict') > -1 && toState.name != "app.conflict.import" )) {
 				$rootScope.noHeader = true;
 			} else {
 				$rootScope.noHeader = false;
@@ -115,8 +109,8 @@
 		$rootScope.$on("$stateChangeSuccess", function(event, toState) {
 
 			$rootScope.stateIsLoading = false;
-			if ($auth.isAuthenticated()) {
-				$mdSidenav('leftMenu').close();
+			if($auth.isAuthenticated()){
+					$mdSidenav('leftMenu').close();
 			}
 			resetMapSize();
 		});

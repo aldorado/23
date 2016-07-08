@@ -1,13 +1,13 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('ExportDirectiveCtrl', function($scope, DataService,DialogService ) {
+	angular.module('app.controllers').controller('ExportDirectiveCtrl', function(DataService) {
 		//
 		var vm = this;
 		vm.original = angular.copy(vm.item);
 		vm.checkBase = checkBase;
 		vm.checkFull = checkFull;
-		vm.getCode = getCode;
+
 
 		vm.baseOptions = {
 			drag: true,
@@ -45,9 +45,6 @@
 
 		function checkFull() {
 
-		}
-		function getCode(){
-			 DialogService.fromTemplate('embedcode', $scope);
 		}
 
 	});

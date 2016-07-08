@@ -6,7 +6,6 @@
 		return {
 			countries: [],
 			continents: [],
-			indicator: null,
 			fetchData: function() {
 				return this.countries = DataService.getOne('countries/isos').$object;
 			},
@@ -16,15 +15,12 @@
 				}
 				return this.countries;
 			},
-			getContinents: function(success, indicator) {
+			getContinents: function(success) {
 				var _that = this;
-				if (this.continents.length && indicator == this.indicator) {
+				if (this.continents.length) {
 					success(this.continents);
 				} else {
-					this.indicator = indicator;
-					return DataService.getAll('continents', {
-						indicator: indicator
-					}).then(function(continents) {
+					return DataService.getAll('continents').then(function(continents) {
 						_that.continents = continents;
 						success(continents);
 					});

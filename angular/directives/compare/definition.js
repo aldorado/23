@@ -10,9 +10,7 @@
 				margin: 5,
 				color: '#ff0000',
 				field: 'score',
-				duration: 500,
-				min: 0,
-				max: 100
+				duration: 500
 			}
 		};
 
@@ -31,7 +29,7 @@
 					bgColor = '#ddd';
 
 				var xscale = d3.scale.linear()
-					.domain([scope.options.min, scope.options.max])
+					.domain([0, 100])
 					.range([0, (scope.options.width - 100 - (scope.options.margin * 2))]);
 
 				var yscale = d3.scale.ordinal()
@@ -50,7 +48,7 @@
 				var xAxis = d3.svg.axis()
 					.scale(xscale)
 					.orient("top")
-					.tickValues([scope.options.min, scope.options.max]);
+					.tickValues([0, 100]);
 
 				var lines = svg.append("g")
 					.attr("class", "x axis")
@@ -61,14 +59,14 @@
 				var midLine = lines.append("line")
 					.attr("class", "domain dashed")
 					.attr('transform', function() {
-						return "translate(" + (xscale(scope.options.max / 2)) + ",0)";
+						return "translate(" + (xscale(50)) + ",0)";
 					})
 					.attr("y2", scope.options.height * scope.countries.length)
 
 				var endLine = lines.append("line")
 					.attr("class", "domain")
 					.attr('transform', function() {
-						return "translate(" + (xscale(scope.options.max)) + ",0)";
+						return "translate(" + (xscale(100)) + ",0)";
 					})
 					.attr("y2", scope.options.height * scope.countries.length);
 				var rankLabel = lines.append('text')
@@ -90,7 +88,7 @@
 					.attr("transform", "translate(100,0)");
 				var labels = container.append('g')
 					.attr('id', 'labels')
-					.attr('width', scope.options.max);
+					.attr('width', 100);
 
 				function updateData() {
 					//var max = d3.max(data, function(d) { return +d.field_goal_attempts;} );
@@ -215,8 +213,7 @@
 						.duration(scope.options.duration)
 						.attr({
 							'x': function(d, i) {
-
-								if (d[scope.options.field] > scope.options.max / 2) {
+								if (d[scope.options.field] > 50) {
 									return xscale(d[scope.options.field]) - this.getBoundingClientRect().width;
 								}
 								return xscale(d[scope.options.field]) + scope.options.height;
@@ -280,9 +277,8 @@
 				scope.$watch(function() {
 					return scope.countries;
 				}, function(n, o) {
-					scope.countries = angular.extend(scope.countries, scope.country);
 					updateData();
-
+					console.log(scope.countries);
 				}, true)
 			}
 		};

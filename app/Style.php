@@ -21,7 +21,4 @@ class Style extends Model
     public function image(){
       return $this->belongsTo('App\Image');
     }
-    public function countries(){
-      return $this->belongsToMany('App\Countrie', 'style_countries', 'style_id', 'country_id');
-    }
 }

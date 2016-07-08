@@ -9,7 +9,6 @@
 
 		function gotoChapter(chapter) {
 			vm.ExportService.getChapter($state.params.id, chapter, function(c, i) {
-
 				if ($state.params.iso) {
 					$state.go('app.export.detail.chapter.indicator.country', {
 						chapter: chapter,

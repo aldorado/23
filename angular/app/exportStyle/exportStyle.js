@@ -1,17 +1,19 @@
 (function() {
 	"use strict";
 
-	angular.module('app.controllers').controller('ExportStyleCtrl', function($scope, $state, $timeout, ContentService, ExportService, IndizesService, leafletData, leafletMapEvents, VectorlayerService, CountriesService) {
+	angular.module('app.controllers').controller('ExportStyleCtrl', function($scope, $state, $timeout, ExportService, IndizesService, leafletData, leafletMapEvents, VectorlayerService, CountriesService) {
 		var vm = this;
 		vm.exporter = {};
 		vm.item = {};
 		vm.continentOptions = {
-			onlyWithChildren: true
+			children: 'countries'
 		};
 		activate();
 
 		function activate() {
-
+			CountriesService.getContinents(function(continents) {
+				vm.continents = continents
+			});
 			$timeout(function() {
 				vm.exporter = ExportService.exporter;
 				// if(!vm.exporter.items.length) $state.go('app.index.exports.details',{
@@ -34,21 +36,17 @@
 						scroll_wheel_zoom: false,
 						layer_selection: false,
 						legends: true,
-						full_screen: false,
-						countries: []
+						full_screen: false
 					};
 				}
-				ContentService.fetchIndicatorWithData(vm.item.indicator_id, function(indicator) {
-					vm.data = indicator.data;
-					vm.structure = indicator;
+				vm.index = IndizesService.fetchData(vm.item.indicator_id);
+				vm.index.promises.data.then(function(structure) {
+					vm.index.promises.structure.then(function(data) {
+						vm.data = data;
+						vm.structure = structure;
+						VectorlayerService.setData(vm.structure, vm.data, vm.item.style.baseColor, true);
 
-					VectorlayerService.setData(indicator.data, indicator, vm.item.style.base_color, true);
-					CountriesService.getContinents(function(continents) {
-						vm.continents = continents
-					}, vm.item.indicator_id);
-
-				}, {
-					data: true
+					});
 				});
 			});
 		}
