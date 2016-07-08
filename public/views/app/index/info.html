@@ -70,12 +70,25 @@
 												<md-tabs md-center-tabs="true" md-dynamic-height md-no-pagination="true" md-selected="vm.activeTab" md-stretch-tabs="true" md-swipe-content="true" ng-if="vm.current">
 																<md-tab label="Details" md-active="vm.activeTab == 0" md-on-select="vm.setTab(0)" ng-if="vm.structure.children.length > 0">
 
-                                  <section class="header info slide-toggle noPaddingOnClosed" layout-align="space-between center" layout="row" ng-if="vm.current">
+                                  <!--section class="header info slide-toggle noPaddingOnClosed" layout-align="space-between center" layout="row" ng-if="vm.current">
                                     <span class="title">{{vm.countryList[vm.current.iso]}}</span>
-												<span class="info-icon hideOnClosed" ng-click="vm.mapGotoCountry(vm.current.iso)">
-																<ng-md-icon icon="chevron_right"></ng-md-icon>
-												</span>
-                                  </section>
+																		<span class="info-icon hideOnClosed" ng-click="vm.mapGotoCountry(vm.current.iso)">
+																			<ng-md-icon icon="chevron_right"></ng-md-icon>
+																		</span>
+
+                                  </section-->
+
+																	<section class="header info slide-toggle noPaddingOnClosed" layout-align="start center" layout="row" ng-if="vm.current">
+																		<!-- title with option to change country -->
+																		<div flex layout="column" layout-align="center center">
+																			<md-select style="width:100%;" placeholder="Select or click on country" ng-model="vm.selectedCountry"  ng-change="vm.setCurrent(vm.selectedCountry)">
+																				<md-option ng-value="country" ng-repeat="(index, country) in vm.data | orderBy:vm.structure.name" ng-selected="country.iso == vm.current.iso"><span class="title">{{ vm.countryList[country.iso] }}</span></md-option>
+																			</md-select>
+																			<div>{{ vm.structure.children }}</div>
+																		</div>
+																		<!-- ################################### -->
+																	</section>
+
                                   <section class="rank module slide-toggle hideOnClosed" layout-align="space-between center" layout="row" ng-if="vm.current  && !vm.compare.active">
                                     <div class="chart" layout="row">
                                       <div layout-align="center center" layout="column">
@@ -122,16 +135,16 @@
                                     </div>
                                   </section>
 
-                                  <section class="module slide-toggle hideOnClosed" ng-if="vm.current && !vm.compare.active">
-                                    <div layout="row" layout-align="space-around center">
-                                      <div class="title epi-score" >
-                                        Epi Score
-                                      </div>
-                                      <div class="trend">
-                                        10 year trend (%) <span>23,99</span>
-                                      </div>
-                                    </div>
-                                  </section>
+																	<section class="module slide-toggle hideOnClosed" ng-if="vm.current && !vm.compare.active">
+																		<div layout="row" layout-align="space-around center">
+																			<div class="title epi-score" >
+																				Epi Score
+																			</div>
+																			<div class="trend">
+																				10 year trend (%) <span>23,99</span>
+																			</div>
+																		</div>
+																	</section>
 
                                   <section class="module slide-toggle hideOnClosed" layout-align="center center" layout="column" ng-if="vm.current  && !vm.compare.active">
                                     <median data="vm.data" ng-model="vm.current" options="{color: vm.structure.style.base_color,handling: true, field: vm.structure.name}" style="margin:2em 0"></median>

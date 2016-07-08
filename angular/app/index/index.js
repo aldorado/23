@@ -55,6 +55,8 @@
 
 		vm.isPrelast = isPrelast;
 
+		vm.selectedCountry = {};
+
 		activate();
 
 		function activate() {
