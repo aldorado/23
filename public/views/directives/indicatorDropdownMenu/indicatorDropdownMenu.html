@@ -1,0 +1,15 @@
+<md-toolbar class="dropdown-element" ng-class="{ 'child-element': !root}" ng-repeat="item in ngModel" layout="column">
+  <div class="md-toolbar-tools">
+    <span class="dropdown" ng-class="{ 'child': !root}">
+      <md-icon ng-if="root">{{item.icon}}</md-icon>
+    </span>
+    <h2>
+      <span>{{item.name}}</span>
+    </h2>
+    <span flex></span>
+    <md-button ng-if="item.children.length > 0" layout-align="center end" class="md-icon-button" ng-click="item.toggled = !item.toggled">
+      >
+    </md-button>
+  </div>
+  <indicator-dropdown-menu ng-model="item.children" root="false" ng-show="item.children.length > 0 && item.toggled"></indicator-dropdown-menu>
+</md-toolbar>

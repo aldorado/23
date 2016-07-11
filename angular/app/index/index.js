@@ -31,6 +31,79 @@
 			selectedCat: ''
 		};
 
+		//Temporary example data for testing purposes of the indicatorDropdownMenu directive
+		vm.exampleData = [
+			{
+				name: "Parent1",
+				icon: "close",
+				onClick: "",
+				children: [
+					{
+						name: "Child-1-1",
+						icon: "",
+						onClick: "",
+						children: []
+					},
+					{
+						name: "Child-1-2",
+						icon: "",
+						onClick: "",
+						children: []
+					},
+					{
+						name: "Child-1-3",
+						icon: "",
+						onClick: "",
+						children: []
+					},
+					{
+						name: "Child-1-4",
+						icon: "",
+						onClick: "",
+						children: []
+					}
+				]
+			},
+			{
+				name: "Parent2",
+				icon: "speaker",
+				onClick: "",
+				children: [
+					{
+						name: "Child-2-1",
+						icon: "",
+						onClick: "",
+						children: [
+							{
+								name: "Child-2-1-1",
+								icon: "",
+								onClick: "",
+								children: []
+							}
+						]
+					},
+					{
+						name: "Child-2-2",
+						icon: "",
+						onClick: "",
+						children: []
+					},
+					{
+						name: "Child-2-3",
+						icon: "",
+						onClick: "",
+						children: []
+					},
+					{
+						name: "Child-2-4",
+						icon: "",
+						onClick: "",
+						children: []
+					}
+				]
+			}
+		];
+
 		//Function definitons
 		vm.showTabContent = showTabContent;
 		vm.setTab = setTab;

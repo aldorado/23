@@ -3207,35 +3207,6 @@ compare-countries .ranks {
 }
 
 
-
-[contenteditable] {
-  position: relative;
-  white-space: pre-wrap;
-  /* css-3 */
-  white-space: -moz-pre-wrap;
-  /* Mozilla, since 1999 */
-  white-space: -pre-wrap;
-  /* Opera 4-6 */
-  white-space: -o-pre-wrap;
-  /* Opera 7 */
-  word-wrap: break-word;
-  /* Internet Explorer 5.5+ */
-}
-[contenteditable]::before {
-  content: '';
-  width: 0%;
-  position: absolute;
-  left: 50%;
-  bottom: -2px;
-  border-bottom: 0px solid #ccc;
-  transition: all 0.15s ease-out;
-}
-[contenteditable]:focus::before {
-  width: 100%;
-  left: 0px;
-  border-bottom-width: 1px;
-}
-
 .thumb-chooser {
   border-radius: 0px;
   width: 100%;
@@ -3265,6 +3236,35 @@ compare-countries .ranks {
 .panel-preview + h3 {
   color: #fff;
   text-shadow: 1px 1px 2px #333;
+}
+
+
+[contenteditable] {
+  position: relative;
+  white-space: pre-wrap;
+  /* css-3 */
+  white-space: -moz-pre-wrap;
+  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */
+}
+[contenteditable]::before {
+  content: '';
+  width: 0%;
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  border-bottom: 0px solid #ccc;
+  transition: all 0.15s ease-out;
+}
+[contenteditable]:focus::before {
+  width: 100%;
+  left: 0px;
+  border-bottom-width: 1px;
 }
 
 
@@ -3340,6 +3340,27 @@ image-uploader .solo-label {
   padding-bottom: 2px;
 }
 
+indicator-dropdown-menu md-toolbar {
+  animation: slideInDown .3s;
+}
+.ng-hidden indicator-dropdown-menu md-toolbar {
+  animation: slideOutUp .3s;
+}
+.dropdown {
+  width: 1.5em;
+}
+.dropdown .child {
+  height: 100%;
+  background-color: #00ccaa;
+}
+.dropdown-element {
+  margin-bottom: .3em;
+}
+.child-element {
+  margin-bottom: 0;
+}
+
+
 .indicator-menu {
   position: absolute;
   right: 2.5em;
@@ -3370,7 +3391,6 @@ image-uploader .solo-label {
 .indicator-menu ng-md-icon.greyed path {
   fill: #ddd;
 }
-
 
 
 median {
@@ -4022,6 +4042,7 @@ piechart .inner-pie {
   overflow: hidden;
 }
 
+
 .md-color-container.md-color-picker-preview {
   content: '';
   width: 24px;
@@ -4044,7 +4065,6 @@ piechart .inner-pie {
   display: -ms-flexbox;
   display: flex;
 }
-
 
 .section {
   padding: 30px;

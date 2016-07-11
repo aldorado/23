@@ -1,0 +1,24 @@
+indicator-dropdown-menu {
+  & md-toolbar {
+    animation:slideInDown .3s;
+    .ng-hidden & {
+      animation: slideOutUp .3s;
+    }
+  }
+}
+
+.dropdown {
+  width:1.5em;
+  .child {
+    height:100%;
+    background-color: #00ccaa;
+  }
+}
+
+.dropdown-element {
+  margin-bottom: .3em;
+}
+
+.child-element {
+  margin-bottom: 0;
+}

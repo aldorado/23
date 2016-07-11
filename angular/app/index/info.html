@@ -80,13 +80,20 @@
 
 																	<section class="header info slide-toggle noPaddingOnClosed" layout-align="start center" layout="row" ng-if="vm.current">
 																		<!-- title with option to change country -->
-																		<div flex layout="column" layout-align="center center">
+																		<div flex layout="row" layout-align="center center">
 																			<md-select style="width:100%;" placeholder="Select or click on country" ng-model="vm.selectedCountry"  ng-change="vm.setCurrent(vm.selectedCountry)">
 																				<md-option ng-value="country" ng-repeat="(index, country) in vm.data | orderBy:vm.structure.name" ng-selected="country.iso == vm.current.iso"><span class="title">{{ vm.countryList[country.iso] }}</span></md-option>
 																			</md-select>
-																			<div>{{ vm.structure.children }}</div>
+
 																		</div>
 																		<!-- ################################### -->
+																	</section>
+
+																	<section class="subheader module slide-toggle noPaddingOnClosed" layout-align="start center" layout="row" ng-if="vm.current">
+																		<div flex class="dropdown" layout="column">
+																			{{ vm.display.selectedCat }}
+																			<indicator-dropdown-menu ng-model="vm.exampleData" root="true"></indicator-dropdown-menu>
+																		</div>
 																	</section>
 
                                   <section class="rank module slide-toggle hideOnClosed" layout-align="space-between center" layout="row" ng-if="vm.current  && !vm.compare.active">
